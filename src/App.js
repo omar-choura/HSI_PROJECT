@@ -11,7 +11,7 @@ import Portal from './Portal';
 import UserCreate from './UserCreate';
 import UserView from './UserView';
 import UserEdit from './UserEdit';
-
+import Reference from './Reference';
 //hello seconde push
 
 function App() {
@@ -26,6 +26,7 @@ function App() {
           <Route path='create-user' element={<UserCreate />} />
           <Route path='user-view/:id' element={<UserView />} />
           <Route path='user-edit/:id' element={<UserEdit />} />
+          <Route path="references" element={<Reference/>}/>
         </Route>
       </Routes>
     </BrowserRouter>
