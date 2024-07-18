@@ -13,10 +13,21 @@ code {
 }
 
 .ChildRef {
-  background-color: blue;
+  margin-top: 20px;
+  text-align: center;
 }
-.h1{
-  color:"white";
- 
-  
+
+.ChildRef button {
+  margin: 0 auto;
+}
+
+.ChildRef h1 {
+  color: black;
+  font-size: 36px; /* Change font size */
+  text-align: center; /* Center align the text */
+  padding: 10px; /* Add padding */
+  margin: 20px; /* Add margin */
+  border: 2px solid black; /* Add border */
+  border-radius: 5px; /* Add rounded corners */
+  text-shadow: 2px 2px 5px grey; /* Add text shadow */
 }

@@ -6,8 +6,7 @@ const ReferenceChild=({data})=>{
     return(
         <div className="ChildRef">
 
-            <h1>{data.name}</h1>
-            <h2>{data.site}</h2>
+            <h1>{data.name}  ---  {data.site}</h1>
             <button>Supprimer</button>
             
         </div>
