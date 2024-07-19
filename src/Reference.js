@@ -11,7 +11,7 @@ const Reference = () => {
   const [showForm, setShowForm] = useState(false);
   const [newName, setNewName] = useState('');
   const [newSite, setNewSite] = useState('');
-
+  const [image,setImage]=useState("")
   const getReferences = async () => {
     try {
       const result = await axios.get(`${apiURL}/reference/getAllReferences`);
@@ -106,11 +106,22 @@ const Reference = () => {
               />
             </label>
           </div>
+          <div className="form-group">
+            <label>
+              Image :
+              <input
+                type="file"
+                value={image}
+                //onChange={(e) => setSite(e.target.files)}
+                onChange={handleImage}
+              />
+            </label>
+          </div>
           <button type="submit" className="submit-button">Submit</button>
         </form>
       )}
 
-      <div>
+      {/* <div>
             <h2>Update Reference</h2>
             <input
               type="text"
@@ -131,7 +142,7 @@ const Reference = () => {
               onChange={(e) => setNewSite(e.target.value)}
             />
             <button onClick={handleUpdate}>Update</button>
-          </div>
+          </div> */}
           </div>
   );
 };
