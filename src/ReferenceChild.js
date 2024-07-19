@@ -1,13 +1,16 @@
 import *as React from 'react'
-import './App.css';
 
-const ReferenceChild=({data})=>{
+const ReferenceChild=({data,onDelete})=>{
   console.log('data chiuld is ' ,data)
+
+  const handleDelete = () => {
+    onDelete(data.name);
+  };
     return(
         <div className="ChildRef">
 
             <h1>{data.name}  ---  {data.site}</h1>
-            <button>Supprimer</button>
+            <button onClick={handleDelete}>Supprimer</button>
             
         </div>
     )
