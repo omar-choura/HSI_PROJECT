@@ -11,7 +11,9 @@ const Reference = () => {
   const [showForm, setShowForm] = useState(false);
   const [newName, setNewName] = useState('');
   const [newSite, setNewSite] = useState('');
-  const [image,setImage]=useState("")
+  const [file,setFile]=useState(null)
+
+  console.log("filddde is ",file)
   const getReferences = async () => {
     try {
       const result = await axios.get(`${apiURL}/reference/getAllReferences`);
@@ -22,13 +24,23 @@ const Reference = () => {
     }
   };
 
-  useEffect(() => {
-    getReferences();
-  }, []);
+
+  function handleChange(e) {
+    console.log(e.target.files[0]);
+    //setFile(e.target.files[0])
+    setFile(e.target.files[0])
+    e.preventDefault();
+  //  setFile(URL.createObjectURL(e.target.files[0]));
+}
 
   const addReferences = async () => {
     try {
-      await axios.post(`${apiURL}/reference/addNewreference`, { name, site });
+      const formData=new FormData()
+      formData.append("name",name)
+      formData.append("site",site)
+      formData.append("image",file)
+      const result=await axios.post(`${apiURL}/reference/addNewReferenceWithImage`, formData);
+      console.log("result is  ",result)
       setName('');
       setSite('');
       getReferences(); // Refresh the list of references after adding a new one
@@ -54,21 +66,11 @@ const Reference = () => {
     addReferences();
   };
 
-  const handleUpdate = async () => {
-    try {
-      const updatedReference = {
-        name,
-        newName,
-        newSite,
-      };
-      await axios.put(`${apiURL}/reference/updateReference`, updatedReference);
-      getReferences();
-    } catch (err) {
-      console.log('Error updating reference:', err);
-      alert('Server error');
-    }
-  };
 
+
+  useEffect(() => {
+    getReferences();
+  }, []);
   return (
     <div className="reference-container">
       <h1>La liste des références</h1>
@@ -111,10 +113,10 @@ const Reference = () => {
               Image :
               <input
                 type="file"
-                value={image}
-                //onChange={(e) => setSite(e.target.files)}
-                onChange={handleImage}
+                
+                onChange={handleChange}
               />
+                 {/* <img src={file} /> */}
             </label>
           </div>
           <button type="submit" className="submit-button">Submit</button>
