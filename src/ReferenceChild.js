@@ -10,12 +10,11 @@ console.log()
         <div className="ChildRef">
 
             <h1>{data.name}  ---  {data.site}</h1>
+            <h2>{data.image}</h2>
             <img 
-            src="https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350"
-         // src={require(`${data.image}`)}
-            //src={require(`C:/Users/User/Desktop.download.jpg`)}
-          //alt={logo} 
-          />;
+          
+        src={`http://localhost:5555/photos/${data.image}`} />
+          
             <button onClick={handleDelete}>Supprimer</button>
             
         </div>
