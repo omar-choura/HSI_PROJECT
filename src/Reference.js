@@ -47,7 +47,7 @@ const Reference = () => {
       setShowForm(false); // Hide the form after submission
     } catch (err) {
       console.log('Error adding reference:', err);
-      alert('Server error');
+      alert('Server error adding ref');
     }
   };
 
