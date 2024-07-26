@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import apiURL from './apiURL';
 import ReferenceChild from './ReferenceChild';
-import './index.css'; // Ensure this import is correct
+import { Link } from 'react-router-dom';
+import './index.css';
 
 const Reference = () => {
   const [listReference, setListReference] = useState([]);
+  const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState('');
   const [site, setSite] = useState('');
-  const [showForm, setShowForm] = useState(false);
-  const [newName, setNewName] = useState('');
-  const [newSite, setNewSite] = useState('');
-  const [file,setFile]=useState(null)
+  const [file, setFile] = useState(null);
 
-  console.log("filddde is ",file)
   const getReferences = async () => {
     try {
       const result = await axios.get(`${apiURL}/reference/getAllReferences`);
@@ -24,27 +22,22 @@ const Reference = () => {
     }
   };
 
-
-  function handleChange(e) {
-    console.log(e.target.files[0]);
-    //setFile(e.target.files[0])
-    setFile(e.target.files[0])
-    e.preventDefault();
-  //  setFile(URL.createObjectURL(e.target.files[0]));
-}
+  const handleChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
   const addReferences = async () => {
     try {
-      const formData=new FormData()
-      formData.append("name",name)
-      formData.append("site",site)
-      formData.append("image",file)
-      const result=await axios.post(`${apiURL}/reference/addNewReferenceWithImage`, formData);
-      console.log("result is  ",result)
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("site", site);
+      formData.append("image", file);
+      await axios.post(`${apiURL}/reference/addNewReferenceWithImage`, formData);
       setName('');
       setSite('');
-      getReferences(); // Refresh the list of references after adding a new one
-      setShowForm(false); // Hide the form after submission
+      setFile(null);
+      getReferences();
+      setShowForm(false);
     } catch (err) {
       console.log('Error adding reference:', err);
       alert('Server error');
@@ -66,11 +59,10 @@ const Reference = () => {
     addReferences();
   };
 
-
-
   useEffect(() => {
     getReferences();
   }, []);
+
   return (
     <div className="reference-container">
       <h1>La liste des références</h1>
@@ -78,6 +70,8 @@ const Reference = () => {
       {listReference.map((ele, index) => (
         <div key={index}>
           <ReferenceChild data={ele} onDelete={deleteReference} />
+          <Link to={'/test'}>test</Link><br/>
+          <Link to={`/edit/${ele.name}`}>Update</Link>
           <hr />
         </div>
       ))}
@@ -110,42 +104,17 @@ const Reference = () => {
           </div>
           <div className="form-group">
             <label>
-              Image :
+              Image:
               <input
                 type="file"
-                
                 onChange={handleChange}
               />
-                 {/* <img src={file} /> */}
             </label>
           </div>
           <button type="submit" className="submit-button">Submit</button>
         </form>
       )}
-
-      {/* <div>
-            <h2>Update Reference</h2>
-            <input
-              type="text"
-              placeholder="Current Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="New Name"
-              value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="New Site"
-              value={newSite}
-              onChange={(e) => setNewSite(e.target.value)}
-            />
-            <button onClick={handleUpdate}>Update</button>
-          </div> */}
-          </div>
+    </div>
   );
 };
 
