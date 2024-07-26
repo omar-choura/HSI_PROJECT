@@ -40,7 +40,7 @@ const Reference = () => {
       setShowForm(false);
     } catch (err) {
       console.log('Error adding reference:', err);
-      alert('Server error');
+      alert('Server error adding ref');
     }
   };
 
