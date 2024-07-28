@@ -70,8 +70,7 @@ const Reference = () => {
       {listReference.map((ele, index) => (
         <div key={index}>
           <ReferenceChild data={ele} onDelete={deleteReference} />
-          <Link to={'/test'}>test</Link><br/>
-          <Link to={`/edit/${ele.name}`}>Update</Link>
+        
           <hr />
         </div>
       ))}

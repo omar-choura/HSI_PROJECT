@@ -14,7 +14,7 @@ import UserView from './UserView';
 import UserEdit from './UserEdit';
 import Reference from './Reference';
 import EditPage from './editPage';
-import Test from './test';
+
 
 function App() {
   return (
@@ -27,9 +27,11 @@ function App() {
           <Route path='create-user' element={<UserCreate />} />
           <Route path='user-view/:id' element={<UserView />} />
           <Route path='user-edit/:id' element={<UserEdit />} />
-          <Route path='references' element={<Reference />} />
+          <Route path='references' element={<Reference />} >
+         
+          </Route>
           <Route path='edit/:name' element={<EditPage />} />
-          <Route path='test' element={<Test />} />
+         
         </Route>
       </Routes>
     </BrowserRouter>

@@ -13,7 +13,7 @@ function Portal() {
           <div id="content">
             <Topbar />
             <div className='container-fluid'>
-              <Outlet></Outlet>
+            <Outlet></Outlet>
             </div>
           </div>
         </div>

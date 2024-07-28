@@ -3,9 +3,21 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import apiURL from './apiURL';
-
+import { useLocation } from 'react-router-dom'
 const EditPage = () => {
-  const { name } = useParams();
+  const location = useLocation()
+
+  const { site, image } = location.state; 
+  const {name}=useParams()
+
+  return(
+    <div>
+    <h1>Hello edit {name}</h1>
+    <h2>{site}</h2>
+    </div>
+  )
+  /* const { name } = useParams();
+  console.log(name)
   const [reference, setReference] = useState(null);
   const [updatedName, setUpdatedName] = useState('');
   const [updatedSite, setUpdatedSite] = useState('');
@@ -89,7 +101,7 @@ const EditPage = () => {
         <p>Loading...</p>
       )}
     </div>
-  );
+  ); */
 };
 
 export default EditPage;
