@@ -11,6 +11,7 @@ const Reference = () => {
   const [name, setName] = useState('');
   const [site, setSite] = useState('');
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const getReferences = async () => {
     try {
@@ -19,6 +20,8 @@ const Reference = () => {
     } catch (err) {
       console.log('Error getting references:', err);
       alert('Server error');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,13 +70,18 @@ const Reference = () => {
     <div className="reference-container">
       <h1>La liste des références</h1>
 
-      {listReference.map((ele, index) => (
-        <div key={index}>
-          <ReferenceChild data={ele} onDelete={deleteReference} />
-        
-          <hr />
-        </div>
-      ))}
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          {listReference.map((ele, index) => (
+            <div key={index}>
+              <ReferenceChild data={ele} onDelete={deleteReference} />
+              <hr />
+            </div>
+          ))}
+        </>
+      )}
 
       <button className="toggle-button" onClick={() => setShowForm(!showForm)}>
         {showForm ? 'Cancel' : 'Click to Add Reference'}
@@ -83,7 +91,7 @@ const Reference = () => {
         <form className="reference-form" onSubmit={handleFormSubmit}>
           <div className="form-group">
             <label>
-              Name:
+              Nom:
               <input
                 type="text"
                 value={name}
