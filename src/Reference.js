@@ -10,6 +10,7 @@ const Reference = () => {
   const [showForm, setShowForm] = useState(false);
   const [name, setName] = useState('');
   const [site, setSite] = useState('');
+  const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -34,10 +35,12 @@ const Reference = () => {
       const formData = new FormData();
       formData.append("name", name);
       formData.append("site", site);
+      formData.append("description", description);
       formData.append("image", file);
       await axios.post(`${apiURL}/reference/addNewReferenceWithImage`, formData);
       setName('');
       setSite('');
+      setDescription('');
       setFile(null);
       getReferences();
       setShowForm(false);
@@ -106,6 +109,15 @@ const Reference = () => {
                 type="text"
                 value={site}
                 onChange={(e) => setSite(e.target.value)}
+              />
+            </label>
+          </div>
+          <div className="form-group">
+            <label>
+              Description:
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </label>
           </div>

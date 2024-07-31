@@ -6,21 +6,18 @@ const ReferenceChild = ({ data, onDelete }) => {
     onDelete(data.name);
   };
 
-  const dataToPass = { site: data.site, image:data.image };
- 
+  const dataToPass = { site: data.site, image: data.image, description: data.description };
+
   return (
     <div className="ChildRef">
       <h1>{data.name} --- {data.site}</h1>
       <h2>{data.image}</h2>
+      <p>{data.description}</p>
       <img src={`http://localhost:5555/photos/${data.image}`} alt={data.name} />
       <button onClick={handleDelete}>Supprimer</button>
       <Link 
-    /*   to={{
-        pathname: `/portal/edit/${data.name}`,
-        state: dataToPass
-    }} */
-      to={`/portal/edit/${data.name}`} 
-      state = {{ site: data.site, image:data.image }}
+        to={`/portal/edit/${data.name}`} 
+        state={dataToPass}
       >Modifier</Link>
     </div>
   );

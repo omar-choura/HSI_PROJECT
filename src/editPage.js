@@ -5,12 +5,13 @@ import apiURL from './apiURL';
 
 const EditPage = () => {
   const location = useLocation();
-  const { site, image } = location.state || {};
+  const { site, image, description } = location.state || {};
   const { name } = useParams();
 
   const [reference, setReference] = useState(null);
   const [updatedName, setUpdatedName] = useState('');
   const [updatedSite, setUpdatedSite] = useState('');
+  const [updatedDescription, setUpdatedDescription] = useState('');
   const [updatedImage, setUpdatedImage] = useState(null);
   const [previewImage, setPreviewImage] = useState('');
 
@@ -34,6 +35,7 @@ const EditPage = () => {
       console.log('Reference data:', reference); // Debugging: Log reference state
       setUpdatedName(reference.name || '');
       setUpdatedSite(reference.site || '');
+      setUpdatedDescription(reference.description || '');
       setPreviewImage(reference.image || ''); // Assuming reference.image holds the URL of the image
     }
   }, [reference]);
@@ -48,13 +50,14 @@ const EditPage = () => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("firstName",name)
+      formData.append("firstName", name);
       formData.append('name', updatedName);
       formData.append('site', updatedSite);
+      formData.append('description', updatedDescription);
       if (updatedImage) {
         formData.append('image', updatedImage);
-      }else{
-        formData.append('image',image)
+      } else {
+        formData.append('image', image);
       }
 
       const response = await axios.put(`${apiURL}/reference/updateReference`, formData);
@@ -92,6 +95,17 @@ const EditPage = () => {
                 value={updatedSite}
                 onChange={(e) => setUpdatedSite(e.target.value)}
                 placeholder={site}
+              />
+            </label>
+          </div>
+          <div className="form-group">
+            <label htmlFor="description">
+              Description:
+              <textarea
+                id="description"
+                value={updatedDescription}
+                onChange={(e) => setUpdatedDescription(e.target.value)}
+                placeholder={description}
               />
             </label>
           </div>
